@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">DemoApp</string>
+    <string-array name="attributes">
+        <item>email</item>
+        <item>subid</item>
+        <item>orderid</item>
+        <item>offerid</item>
+        <item>firstname</item>
+        <item>lastname</item>
+        <item>mobile</item>
+        <item>confirmationref</item>
+        <item>amount</item>
+        <item>currency</item>
+        <item>paymenttype</item>
+        <item>ccbin</item>
+        <item>language</item>
+        <item>zipcode</item>
+        <item>country</item>
+    </string-array>
+    <string name="accountId">Account ID</string>
+    <string name="live_environment">Live Environment</string>
+    <string name="test_environment">Test Environment</string>
+    <string name="full_screen">Full Screen</string>
+    <string name="pop_up">Pop Up</string>
+    <string name="init_sdk">Init SDK</string>
+    <string name="show_offers">Show Offers</string>
+
+</resources>
