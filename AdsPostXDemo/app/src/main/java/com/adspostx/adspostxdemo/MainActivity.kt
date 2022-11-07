@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.trimmedLength
+import androidx.core.view.isVisible
 import com.adspostx.sdk.AdsPostX
 import com.adspostx.sdk.AdsPostXPresentationStyle
 import com.adspostx.sdk.AdsPostxEnvironment
@@ -50,6 +51,9 @@ class MainActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
     private var leftMargin = 5u
     private var rightMargin = 5u
 
+    private var switchPrefetch: Switch? = null
+    private var progress: ProgressBar? = null
+
     var attr = mutableMapOf<String , Any>()
 
     private var style: AdsPostXPresentationStyle = AdsPostXPresentationStyle.POPUP
@@ -87,6 +91,8 @@ class MainActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
         textSeekValueLeftMargin = findViewById(R.id.textSeekValueLeftMargin)
         textSeekValueRightMargin = findViewById(R.id.textSeekValueRightMargin)
 
+        switchPrefetch = findViewById(R.id.switchPrefetch)
+        progress = findViewById(R.id.progressbar)
 
         buttoninitSDK?.setOnClickListener {
 //            println("button init sdk tapped")
@@ -97,7 +103,11 @@ class MainActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
                 accountid = it
             }
 
-            AdsPostX.initWith(accountid, attr) { status, error ->
+            progress?.isVisible = true
+            AdsPostX.initWith(this,accountid,attr,switchPrefetch?.isChecked?:true) { status, error ->
+                this.runOnUiThread {
+                    progress?.isVisible = false
+                }
                 if (status) {
                     Toast.makeText(this, "Init SDK success", Toast.LENGTH_SHORT).show()
                 } else {
@@ -113,7 +123,6 @@ class MainActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
         buttonShowOffer?.setOnClickListener {
 //            println("button show offer with attr tapped")
             AdsPostX.showOffers(this,
-                attr,
                 style,
                 isTransparent,
                 margin = Margin(topMargin,bottomMargin,leftMargin,rightMargin),

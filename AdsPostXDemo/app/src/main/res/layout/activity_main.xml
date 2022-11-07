@@ -354,13 +354,33 @@
 
             />
 
-        <Button
-            android:id="@+id/buttonInitsdk"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:text="@string/init_sdk"
-            android:textSize="18sp" />
+            android:orientation="horizontal"
+            android:layout_marginTop="32dp">
+            <Switch
+                android:id="@+id/switchPrefetch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Prefetch"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+
+            <Button
+                android:id="@+id/buttonInitsdk"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="@string/init_sdk"
+                android:textSize="18sp" />
+            <ProgressBar
+                android:id="@+id/progressbar"
+                android:visibility="invisible"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:indeterminate="true"/>
+        </LinearLayout>
 
         <Button
             android:id="@+id/buttonShowOffer"
