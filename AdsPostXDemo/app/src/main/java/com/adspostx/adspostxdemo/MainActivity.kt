@@ -1,15 +1,11 @@
 package com.adspostx.adspostxdemo
 
-import android.os.AsyncTask
 import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.trimmedLength
 import androidx.core.view.isVisible
-import com.adspostx.sdk.AdsPostX
-import com.adspostx.sdk.AdsPostXPresentationStyle
-import com.adspostx.sdk.AdsPostxEnvironment
-import com.adspostx.sdk.Margin
+import com.adspostx.sdk.*
 import com.google.android.material.button.MaterialButtonToggleGroup
 
 
@@ -33,6 +29,7 @@ class MainActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
     private var transparentGroup: MaterialButtonToggleGroup? = null
 
     private var buttoninitSDK: Button? = null
+    private var buttonLoadOffers: Button? = null
     private var buttonShowOffer: Button? = null
     private var isTransparent = true
 
@@ -46,13 +43,12 @@ class MainActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
     private var textSeekValueLeftMargin: TextView? = null
     private var textSeekValueRightMargin: TextView? = null
 
+    private var progressbar: ProgressBar? = null
+
     private var topMargin = 5u
     private var bottomMargin = 5u
     private var leftMargin = 5u
     private var rightMargin = 5u
-
-    private var switchPrefetch: Switch? = null
-    private var progress: ProgressBar? = null
 
     var attr = mutableMapOf<String , Any>()
 
@@ -60,7 +56,7 @@ class MainActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(com.adspostx.adspostxdemo.R.layout.activity_main)
         title = "AdsPostX Demo App"
 
         textAccountId = findViewById(R.id.textAccountId)
@@ -77,9 +73,9 @@ class MainActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
         styleGroup = findViewById(R.id.styleGroup)
         transparentGroup = findViewById(R.id.transparancyGroup)
 
-
         buttoninitSDK = findViewById(R.id.buttonInitsdk)
         buttonShowOffer = findViewById(R.id.buttonShowOffer)
+        buttonLoadOffers = findViewById(R.id.buttonLoadOffers)
 
         seekbarTopMargin = findViewById(R.id.seekbarTopMargin)
         seekbarBottompMargin = findViewById(R.id.seekbarBottomMargin)
@@ -91,30 +87,51 @@ class MainActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
         textSeekValueLeftMargin = findViewById(R.id.textSeekValueLeftMargin)
         textSeekValueRightMargin = findViewById(R.id.textSeekValueRightMargin)
 
-        switchPrefetch = findViewById(R.id.switchPrefetch)
-        progress = findViewById(R.id.progressbar)
+        progressbar = findViewById(R.id.progressbar)
+
+        buttonLoadOffers?.setOnClickListener {
+            //            println("button init sdk tapped")
+            progressbar?.isVisible = true
+
+
+            AdsPostX.loadOffers(this, attr) { status, error ->
+                this.runOnUiThread {
+                    progressbar?.isVisible = false
+                }
+                if (status) {
+                    this.runOnUiThread {
+                        Toast.makeText(this, "Offers loaded Successfully.", Toast.LENGTH_SHORT).show()
+                    }
+                } else {
+                    if (error != null) {
+                        this.runOnUiThread {
+                            Toast.makeText(this, error?.message, Toast.LENGTH_SHORT).show()
+                        }
+                    } else {
+                        this.runOnUiThread {
+                            Toast.makeText(this, "Unknown Error!", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
+            }
+        }
 
         buttoninitSDK?.setOnClickListener {
-//            println("button init sdk tapped")
-
             var accountid: String = ""
 
             textAccountId?.text.toString().let {
                 accountid = it
             }
 
-            progress?.isVisible = true
-            AdsPostX.initWith(this,accountid,attr,switchPrefetch?.isChecked?:true) { status, error ->
-                this.runOnUiThread {
-                    progress?.isVisible = false
-                }
+            AdsPostX.init(accountid) { status, error ->
                 if (status) {
-                    Toast.makeText(this, "Init SDK success", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "SDK initialized successfully.", Toast.LENGTH_SHORT).show()
+                    textAccountId?.isEnabled = false
                 } else {
                     if (error != null) {
-                        Toast.makeText(this, error?.message, Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this,error.message,Toast.LENGTH_SHORT).show()
                     } else {
-                        Toast.makeText(this, "Unknown Error!", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this,"Unknown Error!", Toast.LENGTH_SHORT).show()
                     }
                 }
             }
@@ -129,8 +146,10 @@ class MainActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
                 onLoad = {
                     println("On load")
                 }, onError = {
-                    //println(it)
-                    Toast.makeText(this,it.message,Toast.LENGTH_SHORT).show()
+                    println(it)
+                    this.runOnUiThread {
+                        Toast.makeText(this,it.message,Toast.LENGTH_SHORT).show()
+                    }
                 },
                 onDismiss = {
                     println("Dismiss")
@@ -146,9 +165,11 @@ class MainActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
                 attr["${selectedItem}"] =  "${textValue?.text}"
 
                 textAttributes?.text = attr.toString()
-
+                textValue?.text = ""
             } else {
-                Toast.makeText(this, "Enter valid attribute name/value.", Toast.LENGTH_SHORT).show()
+                this.runOnUiThread {
+                    Toast.makeText(this, "Enter valid attribute name/value.", Toast.LENGTH_SHORT).show()
+                }
             }
         }
 
@@ -159,8 +180,7 @@ class MainActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
 
         val adapter = ArrayAdapter.createFromResource(
             this,
-            R.array.attributes,
-            android.R.layout.simple_spinner_dropdown_item
+            R.array.attributes, android.R.layout.simple_spinner_dropdown_item
         )
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinnerAttribute?.adapter = adapter
