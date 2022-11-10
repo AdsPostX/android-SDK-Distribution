@@ -94,7 +94,7 @@ class MainActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
             progressbar?.isVisible = true
 
 
-            AdsPostX.loadOffers(this, attr) { status, error ->
+            AdsPostX.load(this, attr) { status, error ->
                 this.runOnUiThread {
                     progressbar?.isVisible = false
                 }
