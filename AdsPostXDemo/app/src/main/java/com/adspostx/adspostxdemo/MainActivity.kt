@@ -2,10 +2,10 @@ package com.adspostx.adspostxdemo
 
 import android.os.Bundle
 import android.widget.*
+import com.adspostx.sdk.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.trimmedLength
 import androidx.core.view.isVisible
-import com.adspostx.sdk.*
 import com.google.android.material.button.MaterialButtonToggleGroup
 
 
