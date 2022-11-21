@@ -89,73 +89,6 @@ class MainActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
 
         progressbar = findViewById(R.id.progressbar)
 
-        buttonLoadOffers?.setOnClickListener {
-            //            println("button init sdk tapped")
-            progressbar?.isVisible = true
-
-
-            AdsPostX.load(this, attr) { status, error ->
-                this.runOnUiThread {
-                    progressbar?.isVisible = false
-                }
-                if (status) {
-                    this.runOnUiThread {
-                        Toast.makeText(this, "Offers loaded Successfully.", Toast.LENGTH_SHORT).show()
-                    }
-                } else {
-                    if (error != null) {
-                        this.runOnUiThread {
-                            Toast.makeText(this, error?.message, Toast.LENGTH_SHORT).show()
-                        }
-                    } else {
-                        this.runOnUiThread {
-                            Toast.makeText(this, "Unknown Error!", Toast.LENGTH_SHORT).show()
-                        }
-                    }
-                }
-            }
-        }
-
-        buttoninitSDK?.setOnClickListener {
-            var accountid: String = ""
-
-            textAccountId?.text.toString().let {
-                accountid = it
-            }
-
-            AdsPostX.init(accountid) { status, error ->
-                if (status) {
-                    Toast.makeText(this, "SDK initialized successfully.", Toast.LENGTH_SHORT).show()
-                    textAccountId?.isEnabled = false
-                } else {
-                    if (error != null) {
-                        Toast.makeText(this,error.message,Toast.LENGTH_SHORT).show()
-                    } else {
-                        Toast.makeText(this,"Unknown Error!", Toast.LENGTH_SHORT).show()
-                    }
-                }
-            }
-        }
-
-        buttonShowOffer?.setOnClickListener {
-//            println("button show offer with attr tapped")
-            AdsPostX.showOffers(this,
-                style,
-                isTransparent,
-                margin = Margin(topMargin,bottomMargin,leftMargin,rightMargin),
-                onShow = {
-                    println("On show")
-                }, onError = {
-                    println(it)
-                    this.runOnUiThread {
-                        Toast.makeText(this,it.message,Toast.LENGTH_SHORT).show()
-                    }
-                },
-                onDismiss = {
-                    println("Dismiss")
-                })
-        }
-
         buttonAddAttribute?.setOnClickListener {
             val selectedItem = spinnerAttribute?.selectedItem as? String
             val length = textValue?.text?.trimmedLength() ?: 0
@@ -219,6 +152,75 @@ class MainActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
         seekbarBottompMargin?.setOnSeekBarChangeListener(this)
         seekbarRightMargin?.setOnSeekBarChangeListener(this)
         seekbarLeftMargin?.setOnSeekBarChangeListener(this)
+
+        buttoninitSDK?.setOnClickListener {
+            var accountid: String = ""
+
+            textAccountId?.text.toString().let {
+                accountid = it
+            }
+
+            AdsPostX.init(accountid) { status, error ->
+                if (status) {
+                    Toast.makeText(this, "SDK initialized successfully.", Toast.LENGTH_SHORT).show()
+                    textAccountId?.isEnabled = false
+                } else {
+                    if (error != null) {
+                        Toast.makeText(this,error.message,Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast.makeText(this,"Unknown Error!", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+        }
+
+        buttonLoadOffers?.setOnClickListener {
+            //            println("button init sdk tapped")
+            progressbar?.isVisible = true
+
+
+            AdsPostX.load(this, attr) { status, error ->
+                this.runOnUiThread {
+                    progressbar?.isVisible = false
+                }
+                if (status) {
+                    this.runOnUiThread {
+                        Toast.makeText(this, "Offers loaded Successfully.", Toast.LENGTH_SHORT).show()
+                    }
+                } else {
+                    if (error != null) {
+                        this.runOnUiThread {
+                            Toast.makeText(this, error?.message, Toast.LENGTH_SHORT).show()
+                        }
+                    } else {
+                        this.runOnUiThread {
+                            Toast.makeText(this, "Unknown Error!", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
+            }
+        }
+
+        buttonShowOffer?.setOnClickListener {
+//            println("button show offer with attr tapped")
+            AdsPostX.showOffers(this,
+                style,
+                isTransparent,
+                margin = Margin(topMargin,bottomMargin,leftMargin,rightMargin),
+                onShow = {
+                    println("On show")
+                }, onError = {
+                    println(it)
+                    this.runOnUiThread {
+                        Toast.makeText(this,it.message,Toast.LENGTH_SHORT).show()
+                    }
+                },
+                onDismiss = {
+                    println("Dismiss")
+                })
+        }
+
+
     }
 
     override fun onProgressChanged(bar: SeekBar, progress: Int, fromUser: Boolean) {
