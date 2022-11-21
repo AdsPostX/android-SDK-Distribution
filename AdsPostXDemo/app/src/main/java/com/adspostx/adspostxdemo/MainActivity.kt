@@ -143,8 +143,8 @@ class MainActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
                 style,
                 isTransparent,
                 margin = Margin(topMargin,bottomMargin,leftMargin,rightMargin),
-                onLoad = {
-                    println("On load")
+                onShow = {
+                    println("On show")
                 }, onError = {
                     println(it)
                     this.runOnUiThread {
