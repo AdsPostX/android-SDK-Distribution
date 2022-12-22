@@ -203,7 +203,7 @@ class MainActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
 
         buttonShowOffer?.setOnClickListener {
 //            println("button show offer with attr tapped")
-            AdsPostX.showOffers(this.applicationContext,
+            AdsPostX.showOffers(
                 style,
                 isTransparent,
                 margin = Margin(topMargin,bottomMargin,leftMargin,rightMargin),
