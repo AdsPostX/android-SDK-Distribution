@@ -179,7 +179,7 @@ class MainActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
             progressbar?.isVisible = true
 
 
-            AdsPostX.load(this, attr) { status, error ->
+            AdsPostX.load(this.applicationContext, attr) { status, error ->
                 this.runOnUiThread {
                     progressbar?.isVisible = false
                 }
@@ -203,7 +203,7 @@ class MainActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
 
         buttonShowOffer?.setOnClickListener {
 //            println("button show offer with attr tapped")
-            AdsPostX.showOffers(this,
+            AdsPostX.showOffers(this.applicationContext,
                 style,
                 isTransparent,
                 margin = Margin(topMargin,bottomMargin,leftMargin,rightMargin),
