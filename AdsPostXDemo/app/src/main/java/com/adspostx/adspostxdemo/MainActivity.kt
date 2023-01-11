@@ -1,5 +1,6 @@
 package com.adspostx.adspostxdemo
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.*
 import com.adspostx.sdk.*
@@ -31,6 +32,7 @@ class MainActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
     private var buttoninitSDK: Button? = null
     private var buttonLoadOffers: Button? = null
     private var buttonShowOffer: Button? = null
+    private var buttonNextScreen: Button? = null
     private var isTransparent = true
 
     private var seekbarTopMargin: SeekBar? = null
@@ -76,6 +78,7 @@ class MainActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
         buttoninitSDK = findViewById(R.id.buttonInitsdk)
         buttonShowOffer = findViewById(R.id.buttonShowOffer)
         buttonLoadOffers = findViewById(R.id.buttonLoadOffers)
+        buttonNextScreen = findViewById(R.id.buttonGoToNextScreen)
 
         seekbarTopMargin = findViewById(R.id.seekbarTopMargin)
         seekbarBottompMargin = findViewById(R.id.seekbarBottomMargin)
@@ -220,7 +223,10 @@ class MainActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
                 })
         }
 
-
+        buttonNextScreen?.setOnClickListener {
+            val intent = Intent(this, NextActivity::class.java)
+            this.startActivity(intent)
+        }
     }
 
     override fun onProgressChanged(bar: SeekBar, progress: Int, fromUser: Boolean) {
