@@ -59,7 +59,7 @@ class MainActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(com.adspostx.adspostxdemo.R.layout.activity_main)
-        title = "AdsPostX Demo App"
+        title = "AdsPostX Native Android"
 
         textAccountId = findViewById(R.id.textAccountId)
 

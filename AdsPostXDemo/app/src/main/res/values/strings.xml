@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">DemoApp</string>
+    <string name="app_name">APX-Native</string>
     <string-array name="attributes">
         <item>email</item>
         <item>subid</item>
