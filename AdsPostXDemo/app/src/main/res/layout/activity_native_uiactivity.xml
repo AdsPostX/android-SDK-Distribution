@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:padding="8dp"
+    tools:context=".NativeUIActivity">
+        <LinearLayout
+            android:background="@color/purple_500"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+        <TextView
+            android:text="Your Order is Complete!"
+            android:textSize="20sp"
+            android:padding="8dp"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"/>
+                <Button
+                    android:id="@+id/buttonCloseOffer"
+                    app:iconGravity="textStart"
+                    android:layout_width="44dp"
+                    app:icon = "@drawable/button_close"
+                    android:layout_height="44dp"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+                <ProgressBar
+                    android:id="@+id/progressbar2"
+                    android:indeterminate="true"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    />
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/viewPager2"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    />
+                <me.relex.circleindicator.CircleIndicator3
+                    android:id="@+id/indicator"
+                    app:ci_drawable="@drawable/circleindicator_round"
+                    android:foregroundTint="@color/teal_200"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"/>
+        </LinearLayout>
+</LinearLayout>
