@@ -78,7 +78,7 @@ class NativeUIActivity : AppCompatActivity() {
         buttonCloseOffer?.isVisible = false
 
         if (apiKey != null && apiKey.toString().trimmedLength() > 0) {
-            AdsPostX.getOffers(apiKey!!, attributes) { result ->
+            AdsPostX.getOffers(apiKey!!, attributes, this) { result ->
                 this.runOnUiThread {
                     progressbar?.isVisible = false
                     buttonCloseOffer?.isVisible = true

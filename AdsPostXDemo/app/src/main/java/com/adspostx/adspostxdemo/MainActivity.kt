@@ -25,11 +25,13 @@ class MainActivity : AppCompatActivity() {
         val nativeUIFragment = NativeUIFragment()
         makeCurrentFragment(standardUIFragment)
 
-        bottomNavigationMenu?.setOnItemSelectedListener {
-            when (it.itemId) {
-                R.id.page_1 -> this.makeCurrentFragment(standardUIFragment)
-                R.id.page_2 -> this.makeCurrentFragment(nativeUIFragment)
+        bottomNavigationMenu?.setOnItemSelectedListener { menuItem ->
+            val fragment = when (menuItem.itemId) {
+                R.id.page_1 -> standardUIFragment
+                R.id.page_2 -> nativeUIFragment
+                else -> null
             }
+            fragment?.let { makeCurrentFragment(it) }
             true
         }
     }

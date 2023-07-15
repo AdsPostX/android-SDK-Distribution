@@ -17,7 +17,6 @@ import com.adspostx.sdk.AdsPostX
 import com.adspostx.sdk.AdsPostxEnvironment
 import com.google.android.material.button.MaterialButtonToggleGroup
 
-
 /**
  * A simple [Fragment] subclass.
  * Use the [NativeUIFragment.newInstance] factory method to
@@ -102,19 +101,21 @@ class NativeUIFragment : Fragment() {
             val apiKey = textAPIKey?.text.toString()
 
             if (apiKey.trimmedLength() > 0) {
-                AdsPostX.getOffers(apiKey,attr) { result ->
-                    this.activity?.runOnUiThread {
-                        progressBar?.isVisible = false
-                    }
-
-                    result.onSuccess {
+                this.context?.let { context ->
+                    AdsPostX.getOffers(apiKey,attr, context) { result ->
                         this.activity?.runOnUiThread {
-                            textAPIResponse?.text = it.toString()
+                            progressBar?.isVisible = false
                         }
-                    }
-                    result.onFailure {
-                        this.activity?.runOnUiThread {
-                            textAPIResponse?.text = it.message
+
+                        result.onSuccess {
+                            this.activity?.runOnUiThread {
+                                textAPIResponse?.text = it.toString()
+                            }
+                        }
+                        result.onFailure {
+                            this.activity?.runOnUiThread {
+                                textAPIResponse?.text = it.toString()
+                            }
                         }
                     }
                 }
