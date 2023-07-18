@@ -16,6 +16,31 @@
         <item>language</item>
         <item>zipcode</item>
         <item>country</item>
+        <item>dev</item>
+        <item>themeId</item>
+    </string-array>
+    <string-array name="nativeAttributes">
+        <item>email</item>
+        <item>subid</item>
+        <item>orderid</item>
+        <item>offerid</item>
+        <item>firstname</item>
+        <item>lastname</item>
+        <item>mobile</item>
+        <item>confirmationref</item>
+        <item>amount</item>
+        <item>currency</item>
+        <item>paymenttype</item>
+        <item>ccbin</item>
+        <item>language</item>
+        <item>zipcode</item>
+        <item>country</item>
+        <item>dev</item>
+        <item>themeId</item>
+        <item>ua</item>
+        <item>creative</item>
+        <item>include_rewarded</item>
+        <item>include_products</item>
     </string-array>
     <string name="accountId">Account ID</string>
     <string name="live_environment">Live Environment</string>
