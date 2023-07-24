@@ -65,9 +65,23 @@ class NativeUIActivity : AppCompatActivity() {
             if (viewPager?.currentItem == offers?.size?.minus(1)) {
                 goBack()
             }
+//            viewPager?.apply {
+//                beginFakeDrag()
+//                fakeDragBy(20f)
+//                endFakeDrag()
+//            }
             viewPager?.apply {
                 beginFakeDrag()
-                fakeDragBy(-200f)
+
+                // Perform multiple fake drag events with incremental positive distances
+                val numFakeDragEvents = 10
+                val distancePerEvent = -(20f / numFakeDragEvents)
+
+                for (i in 0 until numFakeDragEvents) {
+                    fakeDragBy(distancePerEvent)
+                }
+
+                // End fake dragging to apply the swipe action
                 endFakeDrag()
             }
         }
