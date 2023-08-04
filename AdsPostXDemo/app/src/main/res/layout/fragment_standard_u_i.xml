@@ -19,15 +19,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="@string/accountId"
+                android:text="@string/sdkId"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/textAccountId"
+                android:id="@+id/textSdkId"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Enter Account ID here"
+                android:hint="Enter SDK ID here"
                 android:textColorHint="#ff0000"
                 android:textSize="18sp" />
 

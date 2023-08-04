@@ -23,7 +23,7 @@ import com.google.android.material.button.MaterialButtonToggleGroup
  * create an instance of this fragment.
  */
 class NativeUIFragment : Fragment() {
-    private var textAccountId: TextView? = null
+    private var textSdkId: TextView? = null
     private var spinnerAttribute: Spinner? = null
     private var textValue: TextView? = null
     private var buttonAddAttribute: Button? = null
@@ -50,7 +50,7 @@ class NativeUIFragment : Fragment() {
         // Inflate the layout for this fragment
         val view =  inflater.inflate(R.layout.fragment_native_u_i, container, false)
 
-        textAccountId =  view.findViewById(R.id.textAccountId)
+        textSdkId =  view.findViewById(R.id.textSdkId)
         spinnerAttribute = view.findViewById(R.id.spinnerSelectAttribute)
         textValue = view.findViewById(R.id.textValue)
         buttonAddAttribute = view.findViewById(R.id.buttonAddAttribute)
@@ -97,12 +97,12 @@ class NativeUIFragment : Fragment() {
         }
 
         buttonGetOffers?.setOnClickListener {
-            val accountId = textAccountId?.text.toString()
+            val sdkId = textSdkId?.text.toString()
 
-            if (accountId.trimmedLength() > 0) {
+            if (sdkId.trimmedLength() > 0) {
                 this.context?.let { context ->
                     progressBar?.isVisible = true
-                    AdsPostX.getOffers(accountId,attr, context) { result ->
+                    AdsPostX.getOffers(sdkId,attr, context) { result ->
                         this.activity?.runOnUiThread {
                             progressBar?.isVisible = false
                         }
@@ -122,7 +122,7 @@ class NativeUIFragment : Fragment() {
                 }
             } else {
                 this.activity?.runOnUiThread {
-                    Toast.makeText(this.context, "Enter valid AccountId.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this.context, "Enter valid SDK ID.", Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -132,11 +132,11 @@ class NativeUIFragment : Fragment() {
         }
 
         buttonShowOffersUI?.setOnClickListener {
-            val accountId = textAccountId?.text.toString()
+            val sdkId = textSdkId?.text.toString()
 
-            if (accountId.trimmedLength() > 0) {
+            if (sdkId.trimmedLength() > 0) {
                 val bundle = Bundle()
-                bundle.putString("AccountId", accountId)
+                bundle.putString("SdkId", sdkId)
 
                 val attributes = attr as? java.io.Serializable
                 if(attributes != null) {
@@ -149,7 +149,7 @@ class NativeUIFragment : Fragment() {
                 this.startActivity(intent)
             } else {
                 this.activity?.runOnUiThread {
-                    Toast.makeText(this.context, "Enter valid AccountId.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this.context, "Enter valid SDK ID.", Toast.LENGTH_SHORT).show()
                 }
             }
         }

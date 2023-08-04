@@ -21,15 +21,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="8dp"
-                android:text="AccountId"
+                android:text="SDK ID"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/textAccountId"
+                android:id="@+id/textSdkId"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Enter AccountId here"
+                android:hint="Enter SDK ID here"
                 android:textSize="18sp" />
             <TextView
                 android:layout_width="match_parent"

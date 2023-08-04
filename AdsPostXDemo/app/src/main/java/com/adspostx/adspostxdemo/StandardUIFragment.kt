@@ -24,7 +24,7 @@ import com.google.android.material.button.MaterialButtonToggleGroup
  */
 class StandardUIFragment : Fragment(),  SeekBar.OnSeekBarChangeListener {
 
-    private var textAccountId: TextView? = null
+    private var textSdkId: TextView? = null
 
     private var spinnerAttribute: Spinner? = null
     private var textValue: TextView? = null
@@ -101,7 +101,7 @@ class StandardUIFragment : Fragment(),  SeekBar.OnSeekBarChangeListener {
     ): View? {
         // Inflate the layout for this fragment
         val view =  inflater.inflate(R.layout.fragment_standard_u_i, container, false)
-        textAccountId = view.findViewById(R.id.textAccountId)
+        textSdkId = view.findViewById(R.id.textSdkId)
 
         spinnerAttribute = view.findViewById(R.id.spinnerSelectAttribute)
         textValue = view.findViewById(R.id.textValue)
@@ -200,16 +200,16 @@ class StandardUIFragment : Fragment(),  SeekBar.OnSeekBarChangeListener {
         seekbarLeftMargin?.setOnSeekBarChangeListener(this)
 
         buttoninitSDK?.setOnClickListener {
-            var accountid: String = ""
+            var sdkId: String = ""
 
-            textAccountId?.text.toString().let {
-                accountid = it
+            textSdkId?.text.toString().let {
+                sdkId = it
             }
 
-            AdsPostX.init(accountid) { status, error ->
+            AdsPostX.init(sdkId) { status, error ->
                 if (status) {
                     Toast.makeText(this.context, "SDK initialized successfully.", Toast.LENGTH_SHORT).show()
-                    textAccountId?.isEnabled = false
+                    textSdkId?.isEnabled = false
                 } else {
                     if (error != null) {
                         Toast.makeText(this.context,error.message,Toast.LENGTH_SHORT).show()

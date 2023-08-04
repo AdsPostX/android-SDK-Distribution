@@ -17,7 +17,7 @@ import com.google.gson.reflect.TypeToken
 class NativeUIActivity : AppCompatActivity() {
     private var offers: MutableList<Offer>? = mutableListOf()
     private var viewPager: ViewPager2? = null
-    private var accountId: String? = null
+    private var sdkId: String? = null
     private var attributes: MutableMap<String, String>? = null
     private var progressbar: ProgressBar? = null
     private var buttonCloseOffer: Button? = null
@@ -27,7 +27,7 @@ class NativeUIActivity : AppCompatActivity() {
         setContentView(R.layout.activity_native_uiactivity)
 
         val bundle = intent.extras
-        accountId = bundle?.getString("AccountId")
+        sdkId = bundle?.getString("SdkId")
         attributes = bundle?.getSerializable("attributes") as? MutableMap<String, String>
         viewPager = findViewById(R.id.viewPager2)
         progressbar = findViewById(R.id.progressbar2)
@@ -90,8 +90,8 @@ class NativeUIActivity : AppCompatActivity() {
         progressbar?.isVisible = true
         buttonCloseOffer?.isVisible = false
 
-        if (accountId != null && accountId.toString().trimmedLength() > 0) {
-            AdsPostX.getOffers(accountId!!, attributes, this) { result ->
+        if (sdkId != null && sdkId.toString().trimmedLength() > 0) {
+            AdsPostX.getOffers(sdkId!!, attributes, this) { result ->
                 this.runOnUiThread {
                     progressbar?.isVisible = false
                     buttonCloseOffer?.isVisible = true

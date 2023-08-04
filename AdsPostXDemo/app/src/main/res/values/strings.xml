@@ -42,7 +42,7 @@
         <item>include_rewarded</item>
         <item>include_products</item>
     </string-array>
-    <string name="accountId">Account ID</string>
+    <string name="sdkId">SDK ID</string>
     <string name="live_environment">Live Environment</string>
     <string name="test_environment">Test Environment</string>
     <string name="full_screen">Full Screen</string>
