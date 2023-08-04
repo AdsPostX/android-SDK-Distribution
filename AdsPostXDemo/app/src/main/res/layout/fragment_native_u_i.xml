@@ -21,16 +21,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="8dp"
-                android:text="API Key"
+                android:text="AccountId"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/textAPIKey"
+                android:id="@+id/textAccountId"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="024e8109-31f1-4812-9db5-cbd46a7382f7"
-                android:hint="Enter API Key here"
+                android:hint="Enter AccountId here"
                 android:textSize="18sp" />
             <TextView
                 android:layout_width="match_parent"
@@ -156,6 +155,7 @@
                 android:id="@+id/textAPIResponse"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textIsSelectable="true"
                 android:textSize="18sp" />
             <ProgressBar
                 android:id="@+id/progressbar"

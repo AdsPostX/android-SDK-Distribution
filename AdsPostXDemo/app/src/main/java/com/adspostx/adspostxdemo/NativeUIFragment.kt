@@ -23,7 +23,7 @@ import com.google.android.material.button.MaterialButtonToggleGroup
  * create an instance of this fragment.
  */
 class NativeUIFragment : Fragment() {
-    private var textAPIKey: TextView? = null
+    private var textAccountId: TextView? = null
     private var spinnerAttribute: Spinner? = null
     private var textValue: TextView? = null
     private var buttonAddAttribute: Button? = null
@@ -50,7 +50,7 @@ class NativeUIFragment : Fragment() {
         // Inflate the layout for this fragment
         val view =  inflater.inflate(R.layout.fragment_native_u_i, container, false)
 
-        textAPIKey =  view.findViewById(R.id.textAPIKey)
+        textAccountId =  view.findViewById(R.id.textAccountId)
         spinnerAttribute = view.findViewById(R.id.spinnerSelectAttribute)
         textValue = view.findViewById(R.id.textValue)
         buttonAddAttribute = view.findViewById(R.id.buttonAddAttribute)
@@ -97,19 +97,20 @@ class NativeUIFragment : Fragment() {
         }
 
         buttonGetOffers?.setOnClickListener {
-            progressBar?.isVisible = true
-            val apiKey = textAPIKey?.text.toString()
+            val accountId = textAccountId?.text.toString()
 
-            if (apiKey.trimmedLength() > 0) {
+            if (accountId.trimmedLength() > 0) {
                 this.context?.let { context ->
-                    AdsPostX.getOffers(apiKey,attr, context) { result ->
+                    progressBar?.isVisible = true
+                    AdsPostX.getOffers(accountId,attr, context) { result ->
                         this.activity?.runOnUiThread {
                             progressBar?.isVisible = false
                         }
 
                         result.onSuccess {
                             this.activity?.runOnUiThread {
-                                textAPIResponse?.text = it.toString()
+                                val formattedResponse = it.toString(4)
+                                textAPIResponse?.text = formattedResponse
                             }
                         }
                         result.onFailure {
@@ -121,7 +122,7 @@ class NativeUIFragment : Fragment() {
                 }
             } else {
                 this.activity?.runOnUiThread {
-                    Toast.makeText(this.context, "Enter valid API Key.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this.context, "Enter valid AccountId.", Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -131,11 +132,11 @@ class NativeUIFragment : Fragment() {
         }
 
         buttonShowOffersUI?.setOnClickListener {
-            val apiKey = textAPIKey?.text.toString()
+            val accountId = textAccountId?.text.toString()
 
-            if (apiKey.trimmedLength() > 0) {
+            if (accountId.trimmedLength() > 0) {
                 val bundle = Bundle()
-                bundle.putString("APIKey", apiKey)
+                bundle.putString("AccountId", accountId)
 
                 val attributes = attr as? java.io.Serializable
                 if(attributes != null) {
@@ -148,7 +149,7 @@ class NativeUIFragment : Fragment() {
                 this.startActivity(intent)
             } else {
                 this.activity?.runOnUiThread {
-                    Toast.makeText(this.context, "Enter valid API Key.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this.context, "Enter valid AccountId.", Toast.LENGTH_SHORT).show()
                 }
             }
         }

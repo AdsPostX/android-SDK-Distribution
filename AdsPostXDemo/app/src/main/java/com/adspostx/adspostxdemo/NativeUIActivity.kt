@@ -1,7 +1,6 @@
 package com.adspostx.adspostxdemo
 
 import android.content.Intent
-import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.widget.Button
@@ -18,7 +17,7 @@ import com.google.gson.reflect.TypeToken
 class NativeUIActivity : AppCompatActivity() {
     private var offers: MutableList<Offer>? = mutableListOf()
     private var viewPager: ViewPager2? = null
-    private var apiKey: String? = null
+    private var accountId: String? = null
     private var attributes: MutableMap<String, String>? = null
     private var progressbar: ProgressBar? = null
     private var buttonCloseOffer: Button? = null
@@ -28,7 +27,7 @@ class NativeUIActivity : AppCompatActivity() {
         setContentView(R.layout.activity_native_uiactivity)
 
         val bundle = intent.extras
-        apiKey = bundle?.getString("APIKey")
+        accountId = bundle?.getString("AccountId")
         attributes = bundle?.getSerializable("attributes") as? MutableMap<String, String>
         viewPager = findViewById(R.id.viewPager2)
         progressbar = findViewById(R.id.progressbar2)
@@ -91,8 +90,8 @@ class NativeUIActivity : AppCompatActivity() {
         progressbar?.isVisible = true
         buttonCloseOffer?.isVisible = false
 
-        if (apiKey != null && apiKey.toString().trimmedLength() > 0) {
-            AdsPostX.getOffers(apiKey!!, attributes, this) { result ->
+        if (accountId != null && accountId.toString().trimmedLength() > 0) {
+            AdsPostX.getOffers(accountId!!, attributes, this) { result ->
                 this.runOnUiThread {
                     progressbar?.isVisible = false
                     buttonCloseOffer?.isVisible = true
